@@ -1,5 +1,6 @@
 from pydantic import ByteSize
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from sqlalchemy import URL
 
 
 class BasaSetting(BaseSettings):
@@ -10,6 +11,28 @@ class BasaSetting(BaseSettings):
         extra="ignore",
     )
 
+class DataBaseSetting(BasaSetting):
+    DRIVERNAME: str
+    USERNAME: str | None = None
+    PASSWORD: str | None = None
+    HOST: str | None = None
+    PORT: str | None = None
+    DATABASENAME: str
+
+    @property
+    def URL(self) -> URL:
+        if "sqlite" in self.DRIVERNAME:
+            return URL.create(drivername=self.DRIVERNAME, database=self.DATABASENAME)
+        elif all([self.USERNAME, self.PASSWORD, self.HOST, self.PORT]):
+            return URL.create(
+                self.DRIVERNAME,
+                self.USERNAME,
+                self.PASSWORD,
+                self.HOST,
+                self.PORT,
+                self.DATABASENAME,
+            )
+        raise ValueError("Не хватает данных для создания URL")
 
 class LoggerSetting(BasaSetting):
     LEVEL: str
