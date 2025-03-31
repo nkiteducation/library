@@ -6,6 +6,10 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
+import uvloop
+
+from core.logger import configure_logging
+from core.setting import appSetting
 
 
 LOG = logging.getLogger(__name__)
@@ -13,6 +17,14 @@ LOG = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    uvloop.install()
+    configure_logging(
+        appSetting.LOGGER.LEVEL,
+        appSetting.LOGGER.MAXBYTES,
+        appSetting.LOGGER.BACKUPCOUNT,
+        True,
+        appSetting.LOGGER.BLACKSET,
+    )
     LOG.info("start")
     yield
     LOG.info("stop")
