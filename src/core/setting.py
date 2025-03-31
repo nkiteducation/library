@@ -56,6 +56,7 @@ class AppSetting(BasaSetting):
 
     API: APISetting
     LOGGER: LoggerSetting
+    DATABASE: DataBaseSetting
 
 
 appSetting = AppSetting()
