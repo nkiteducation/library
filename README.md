@@ -38,7 +38,8 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ### Перевірка коду за допомогою Ruff
 ```sh
-ruff check .
+ruff format
+ruff check --fix
 ```
 
 ### Запуск тестів
