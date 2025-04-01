@@ -7,7 +7,8 @@ from fastapi.responses import ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 import uvloop
-
+from database.session import SessionManager
+from database.model import CoreModel
 from core.logger import configure_logging
 from core.setting import appSetting
 
@@ -25,9 +26,11 @@ async def lifespan(app: FastAPI):
         True,
         appSetting.LOGGER.BLACKSET,
     )
+    await SessionManager(appSetting.DATABASE.URL).init_db(CoreModel.metadata)
     LOG.info("start")
     yield
     LOG.info("stop")
+    await SessionManager.close()
 
 
 def create_app() -> FastAPI:
