@@ -19,7 +19,7 @@ class BookCreate(BaseModel):
 
 
 class BookRead(BookCreate, BaseReadSchemas):
-    pubs: list["PublishingHouse"]
+    pubs: list["PublishingHouseRead"]
 
 
 ###PublishingHouse###
