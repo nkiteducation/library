@@ -9,6 +9,7 @@ class BasaSetting(BaseSettings):
         env_file_encoding="utf-8",
         env_nested_delimiter="_",
         extra="ignore",
+        frozen=True
     )
 
 class DataBaseSetting(BasaSetting):
