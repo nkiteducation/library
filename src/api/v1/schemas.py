@@ -19,7 +19,7 @@ class BookCreate(BaseModel):
 
 
 class BookRead(BookCreate, BaseReadSchemas):
-    pubs: list["PublishingHouseRead"]
+    pubs: list["PublishingHouse"]
 
 
 ###PublishingHouse###
@@ -29,10 +29,10 @@ class PublishingHouseCreate(BaseModel):
 
 
 class PublishingHouseRead(PublishingHouseCreate, BaseReadSchemas):
-    files: list["BookFile"]
+    files: list["BookFileRead"]
 
 
 ###BookFile###
-class BookFile(BaseModel):
+class BookFileRead(BaseReadSchemas):
     file_type: str
     size: ByteSize
