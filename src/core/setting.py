@@ -9,8 +9,9 @@ class BasaSetting(BaseSettings):
         env_file_encoding="utf-8",
         env_nested_delimiter="_",
         extra="ignore",
-        frozen=True
+        frozen=True,
     )
+
 
 class DataBaseSetting(BasaSetting):
     DRIVERNAME: str
@@ -34,6 +35,7 @@ class DataBaseSetting(BasaSetting):
                 self.DATABASENAME,
             )
         raise ValueError("Не хватает данных для создания URL")
+
 
 class LoggerSetting(BasaSetting):
     LEVEL: str
