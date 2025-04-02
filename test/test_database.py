@@ -7,7 +7,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 @pytest.mark.asyncio
 async def test_create_book(session: AsyncSession):
-    book = Book(id=uuid4(), title="Python 101", desc="Учебник по Python", page_count=350)
+    book = Book(
+        id=uuid4(), title="Python 101", desc="Учебник по Python", page_count=350
+    )
     session.add(book)
     await session.commit()
 
@@ -42,7 +44,13 @@ async def test_create_book_file(session: AsyncSession):
     session.add(pub)
     await session.commit()
 
-    book_file = BookFile(id=uuid4(), path="/files/async_python.pdf", file_type="pdf", size=1024, pub_id=pub.id)
+    book_file = BookFile(
+        id=uuid4(),
+        path="/files/async_python.pdf",
+        file_type="pdf",
+        size=1024,
+        pub_id=pub.id,
+    )
     session.add(book_file)
     await session.commit()
 
@@ -62,7 +70,9 @@ async def test_cascade_delete(session: AsyncSession):
     session.add(pub)
     await session.commit()
 
-    book_file = BookFile(id=uuid4(), path="/files/ml.pdf", file_type="pdf", size=2048, pub_id=pub.id)
+    book_file = BookFile(
+        id=uuid4(), path="/files/ml.pdf", file_type="pdf", size=2048, pub_id=pub.id
+    )
     session.add(book_file)
     await session.commit()
 

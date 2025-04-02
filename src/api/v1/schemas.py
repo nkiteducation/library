@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict, ByteSize
 
@@ -17,6 +18,10 @@ class BookCreate(BaseModel):
     desc: str
     page_count: int
 
+class BookUpdate(BaseModel):
+    title: Optional[str] = None
+    desc: Optional[str] = None
+    page_count: Optional[int] = None
 
 class BookRead(BookCreate, BaseReadSchemas):
     pubs: list["PublishingHouseRead"]

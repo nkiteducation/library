@@ -1,5 +1,6 @@
 from core.setting import AppSetting
 
+
 def test_app_settings(monkeypatch):
     monkeypatch.setenv("DEVELOPMENT", "true")
     monkeypatch.setenv("API_HOST", "127.0.0.1")
@@ -13,7 +14,7 @@ def test_app_settings(monkeypatch):
     monkeypatch.setenv("DATABASE_DATABASENAME", "memory.db")
 
     settings = AppSetting()
-    
+
     assert settings.DEVELOPMENT is True
     assert settings.API.HOST == "127.0.0.1"
     assert settings.API.PORT == 8000
