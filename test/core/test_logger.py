@@ -40,7 +40,7 @@ def test_zip_rotating_file_handler_rollover(zip_rotating_file_handler):
 
     backup_file = f"{log_file}.1.gz"
     assert os.path.exists(backup_file)
-    
+
     with gzip.open(backup_file, "rb") as f:
         backup_content = f.read().decode("utf-8")
         assert log_message in backup_content
@@ -94,6 +94,6 @@ def test_file_logging(configure_logging_fixture):
     with open(log_file, "r", encoding="utf-8") as f:
         content = f.read()
         assert log_message in content
-        
+
     if os.path.exists(log_file):
         os.remove(log_file)
