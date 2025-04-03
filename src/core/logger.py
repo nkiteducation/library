@@ -96,7 +96,7 @@ def configure_logging(
     max_bytes: int = 10**6,
     backup_count: int = 5,
     delay: bool = True,
-    blacklist: set[str] = None,
+    blacklist: set[str] = set(),
 ) -> None:
     """
     Общая конфигурация логирования:
