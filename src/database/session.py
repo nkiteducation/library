@@ -25,9 +25,7 @@ class SessionManager:
 
     def __init(self, url: str = "sqlite+aiosqlite:///:memory:", **kwargs):
         LOG.debug("Initializing with DB URL: %s", url)
-        self.async_engine = create_async_engine(
-            url, echo=kwargs.get("echo", False), future=True
-        )
+        self.async_engine = create_async_engine(url, future=True, **kwargs)
         self.async_session_factory = async_sessionmaker(
             self.async_engine, autoflush=False, expire_on_commit=False
         )

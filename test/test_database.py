@@ -8,7 +8,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 @pytest.mark.asyncio
 async def test_create_book(session: AsyncSession):
     book = Book(
-        id=uuid4(), title="Python 101", desc="Учебник по Python", page_count=350
+        id=uuid4(),
+        title="Python 101",
+        author="Guido van Rossum",
+        desc="Учебник по Python",
+        page_count=350,
     )
     session.add(book)
     await session.commit()
@@ -20,7 +24,12 @@ async def test_create_book(session: AsyncSession):
 
 @pytest.mark.asyncio
 async def test_create_publishing_house(session: AsyncSession):
-    book = Book(id=uuid4(), title="SQL Mastery", desc="Глубокое погружение в SQL")
+    book = Book(
+        id=uuid4(),
+        title="SQL Mastery",
+        author="SQL Expert",
+        desc="Глубокое погружение в SQL",
+    )
     session.add(book)
     await session.commit()
 
@@ -36,7 +45,12 @@ async def test_create_publishing_house(session: AsyncSession):
 
 @pytest.mark.asyncio
 async def test_create_book_file(session: AsyncSession):
-    book = Book(id=uuid4(), title="Async Python", desc="Асинхронность в Python")
+    book = Book(
+        id=uuid4(),
+        title="Async Python",
+        author="Async Guru",
+        desc="Асинхронность в Python",
+    )
     session.add(book)
     await session.commit()
 
@@ -62,7 +76,9 @@ async def test_create_book_file(session: AsyncSession):
 
 @pytest.mark.asyncio
 async def test_cascade_delete(session: AsyncSession):
-    book = Book(id=uuid4(), title="Machine Learning", desc="Основы ML")
+    book = Book(
+        id=uuid4(), title="Machine Learning", author="ML Expert", desc="Основы ML"
+    )
     session.add(book)
     await session.commit()
 
