@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 from fastapi import status
-from api.v1.schemas import BookCreate, BookRead
+from api.v1.schemas import BookCreate
 
 
 @pytest.fixture(scope="session")
