@@ -15,13 +15,17 @@ class BaseReadSchemas(BaseModel):
 ###BOOK###
 class BookCreate(BaseModel):
     title: str
+    author: str
     desc: str
     page_count: int
 
+
 class BookUpdate(BaseModel):
     title: Optional[str] = None
+    author: Optional[str] = None
     desc: Optional[str] = None
     page_count: Optional[int] = None
+
 
 class BookRead(BookCreate, BaseReadSchemas):
     pubs: list["PublishingHouseRead"]

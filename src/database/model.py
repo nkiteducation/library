@@ -32,6 +32,7 @@ class Book(CoreModel, UUIDMixin, TimestampMixin):
     """Модель книги."""
 
     title: Mapped[str] = mapped_column(String(255), nullable=False)
+    author: Mapped[str] = mapped_column(String(255), nullable=False)
     desc: Mapped[str | None] = mapped_column(String, nullable=True)
     page_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
