@@ -1,6 +1,7 @@
 import logging
 from uuid import UUID
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
+from api.v1.dependencies import rate_limiter
 from api.v1.schemas import BookCreate, BookRead, BookUpdate
 from database.session import SessionManager
 from database.model import Book
@@ -8,7 +9,7 @@ from sqlalchemy import insert, select, update, delete
 
 logger = logging.getLogger(__name__)
 
-book_router = APIRouter(prefix="/book", tags=["📚 Book Management"])
+book_router = APIRouter(prefix="/book", tags=["📚 Book Management"], dependencies=[Depends(rate_limiter)])
 
 
 @book_router.post(
