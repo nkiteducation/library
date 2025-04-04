@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Optional
+from typing import Annotated, Optional
 from uuid import UUID
-from pydantic import BaseModel, ConfigDict, ByteSize
+from pydantic import BaseModel, ConfigDict, ByteSize, PlainSerializer
 
 
 class BaseReadSchemas(BaseModel):
@@ -49,4 +49,9 @@ class PublishingHouseRead(PublishingHouseCreate, BaseReadSchemas):
 ###BookFile###
 class BookFileRead(BaseReadSchemas):
     file_type: str
-    size: ByteSize
+    size: Annotated[
+        ByteSize,
+        PlainSerializer(
+            lambda v: v.human_readable(), return_type=str, when_used="json"
+        ),
+    ]

@@ -87,7 +87,7 @@ async def get_publishing_house(id: UUID):
     return PublishingHouseRead.model_validate(publishing_house)
 
 
-@publishing_house_router.put(
+@publishing_house_router.patch(
     "/{id}",
     response_model=PublishingHouseRead,
     summary="Update a publishing house ✏️",

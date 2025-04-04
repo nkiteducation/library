@@ -12,7 +12,6 @@ from sqlalchemy.orm import (
 )
 
 from database.mixin import TimestampMixin, UUIDMixin
-from database.typing import SizeType
 
 
 def camel_to_snake(name: str) -> str:
@@ -66,7 +65,7 @@ class BookFile(CoreModel, UUIDMixin, TimestampMixin):
 
     path: Mapped[str] = mapped_column(String(1024), nullable=False)
     file_type: Mapped[str] = mapped_column(String(50), nullable=False)
-    size: Mapped[SizeType] = mapped_column(Integer, nullable=False)
+    size: Mapped[int] = mapped_column(Integer(), nullable=False)
 
     pub_id: Mapped[UUID] = mapped_column(
         ForeignKey("publishing_house.id", ondelete="CASCADE"), nullable=False

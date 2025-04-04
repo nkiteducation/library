@@ -71,7 +71,7 @@ async def get_book(id: UUID):
     return BookRead.model_validate(book)
 
 
-@book_router.put(
+@book_router.patch(
     "/{id}",
     response_model=BookRead,
     summary="Update a book ✏️",
