@@ -1,4 +1,4 @@
-from fastapi import status, Request, Response, HTTPException, Depends
+from fastapi import status, Request, Response, HTTPException
 import time
 
 RATE_LIMIT = 100
@@ -22,7 +22,7 @@ def rate_limiter(request: Request, response: Response):
             detail="Rate limit exceeded. Try again later.⏳",
             headers={"Retry-After": str(reset_time - now)},
         )
-        
+
     rate_limits[client_ip] = [remaining - 1, reset_time]
 
     response.headers["X-RateLimit-Limit"] = str(RATE_LIMIT)

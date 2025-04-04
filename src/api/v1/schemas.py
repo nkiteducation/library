@@ -37,6 +37,11 @@ class PublishingHouseCreate(BaseModel):
     lang: str
 
 
+class PublishingHouseUpdate(BaseModel):
+    name: Optional[str] = None
+    lang: Optional[str] = None
+
+
 class PublishingHouseRead(PublishingHouseCreate, BaseReadSchemas):
     files: list["BookFileRead"]
 

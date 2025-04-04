@@ -9,7 +9,9 @@ from sqlalchemy import insert, select, update, delete
 
 logger = logging.getLogger(__name__)
 
-book_router = APIRouter(prefix="/book", tags=["📚 Book Management"], dependencies=[Depends(rate_limiter)])
+book_router = APIRouter(
+    prefix="/book", tags=["📚 Book Management"], dependencies=[Depends(rate_limiter)]
+)
 
 
 @book_router.post(
@@ -40,11 +42,11 @@ async def list_books():
     async with SessionManager.scoped_session() as session:
         stmt = select(Book)
         books = (await session.scalars(stmt)).all()
-        
+
     if not books:
         logger.info("No books found")
         return []
-    
+
     logger.info("Fetched %s books", len(books))
     return [BookRead.model_validate(book) for book in books]
 
@@ -60,11 +62,11 @@ async def get_book(id: UUID):
     async with SessionManager.scoped_session() as session:
         stmt = select(Book).where(Book.id == id)
         book = await session.scalar(stmt)
-        
+
     if not book:
         logger.warning("Book with id %s not found", id)
         raise HTTPException(status.HTTP_404_NOT_FOUND)
-    
+
     logger.info("Book with id %s found", id)
     return BookRead.model_validate(book)
 
@@ -86,11 +88,11 @@ async def update_book(id: UUID, update_book: BookUpdate):
         )
         book = await session.scalar(stmt)
         await session.commit()
-        
+
     if not book:
         logger.warning("Book with id %s not found for update", id)
         raise HTTPException(status.HTTP_404_NOT_FOUND)
-    
+
     logger.info("Book with id %s updated successfully", id)
     return BookRead.model_validate(book)
 
@@ -107,7 +109,7 @@ async def delete_book(id: UUID):
         stmt = delete(Book).where(Book.id == id).returning(Book.id)
         deleted_id = await session.scalar(stmt)
         await session.commit()
-        
+
     if not deleted_id:
         logger.warning("Book with id %s not found for deletion", id)
         raise HTTPException(status.HTTP_404_NOT_FOUND)
@@ -116,5 +118,5 @@ async def delete_book(id: UUID):
 
     return {
         "message": "Book successfully deleted. 📚",
-        "deleted_book_id": str(deleted_id),
+        "deleted_book_id": deleted_id,
     }
